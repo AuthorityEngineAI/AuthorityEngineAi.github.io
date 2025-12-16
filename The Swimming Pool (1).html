@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Swimming Pool - Your Custom Journey</title>
+    <style>
+        :root {
+            --color-primary: #2980b9;
+            --color-primary-dark: #1e5fa0;
+            --color-accent: #e74c3c;
+            --color-success: #27ae60;
+            --color-bg: #f8f9fa;
+            --color-surface: #ffffff;
+            --color-text: #2c3e50;
+            --color-text-light: #7f8c8d;
+            --color-border: #ecf0f1;
+            --color-hover: #ecf0f1;
+            --space-16: 16px;
+            --space-24: 24px;
+            --space-32: 32px;
+            --radius-base: 12px;
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --duration-normal: 250ms;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-16);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            padding: var(--space-24) 0;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: white;
+            padding: var(--space-32) var(--space-16);
+            margin-top: var(--space-32);
+            border-radius: var(--radius-base);
+            text-align: center;
+            margin-bottom: var(--space-32);
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: var(--space-16);
+            color: var(--color-primary);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--color-text-light);
+            margin-bottom: var(--space-24);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Profile Selection Grid */
+        .profiles-section {
+            margin-bottom: var(--space-32);
+        }
+
+        .profiles-section h3 {
+            font-size: 24px;
+            margin-bottom: var(--space-24);
+            text-align: center;
+            color: var(--color-primary);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-24);
+            margin-bottom: var(--space-32);
+        }
+
+        .profile-card {
+            background: white;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-base);
+            padding: var(--space-24);
+            cursor: pointer;
+            transition: all var(--duration-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 8px 16px rgba(41, 128, 185, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .profile-card.active {
+            border-color: var(--color-success);
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.05) 0%, rgba(46, 204, 113, 0.05) 100%);
+            box-shadow: 0 8px 16px rgba(39, 174, 96, 0.2);
+        }
+
+        .profile-icon {
+            font-size: 48px;
+            margin-bottom: var(--space-16);
+        }
+
+        .profile-card h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .profile-card p {
+            font-size: 14px;
+            color: var(--color-text-light);
+            margin-bottom: var(--space-16);
+        }
+
+        .stage-badge {
+            display: inline-block;
+            background: var(--color-accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .profile-card.active .stage-badge {
+            background: var(--color-success);
+        }
+
+        /* Content Area */
+        .content-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-32);
+            margin-bottom: var(--space-32);
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .content-panel {
+            background: white;
+            padding: var(--space-24);
+            border-radius: var(--radius-base);
+            border: 1px solid var(--color-border);
+            display: none;
+        }
+
+        .content-panel.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .content-panel h4 {
+            color: var(--color-primary);
+            margin-bottom: var(--space-16);
+            font-size: 20px;
+        }
+
+        .content-panel ul {
+            list-style: none;
+            margin-bottom: var(--space-16);
+        }
+
+        .content-panel li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            color: var(--color-text-light);
+        }
+
+        .content-panel li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        /* CTA Customization */
+        .cta-options {
+            background: #f8f9fa;
+            padding: var(--space-24);
+            border-radius: var(--radius-base);
+            margin-top: var(--space-24);
+        }
+
+        .cta-options h5 {
+            margin-bottom: var(--space-16);
+            color: var(--color-text);
+            font-size: 16px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .cta-btn {
+            padding: var(--space-16) var(--space-24);
+            border: none;
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all var(--duration-normal);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: var(--space-16);
+        }
+
+        .cta-btn-primary {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .cta-btn-primary:hover {
+            background: #c0392b;
+            transform: translateX(4px);
+        }
+
+        .cta-btn-secondary {
+            background: white;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .cta-btn-secondary:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* Journey Indicator */
+        .journey-indicator {
+            background: white;
+            padding: var(--space-24);
+            border-radius: var(--radius-base);
+            border-left: 4px solid var(--color-primary);
+            margin-bottom: var(--space-24);
+        }
+
+        .journey-indicator h5 {
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+
+        .journey-indicator p {
+            color: var(--color-text-light);
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-text);
+            color: white;
+            padding: var(--space-32) var(--space-16);
+            text-align: center;
+            margin-top: var(--space-32);
+        }
+
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Conversion Meter */
+        .conversion-meter {
+            background: white;
+            padding: var(--space-24);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-24);
+            border: 1px solid var(--color-border);
+        }
+
+        .meter-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--color-text-light);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .meter-bar {
+            height: 8px;
+            background: var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: var(--space-16);
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-success) 0%, var(--color-primary) 100%);
+            width: 0%;
+            transition: width 0.6s ease-out;
+        }
+
+        .meter-text {
+            font-size: 12px;
+            color: var(--color-text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>🏊 The Swimming Pool</h1>
+            <p>Jump into the deep end, wade in the shallow, or relax at the edge—this experience is yours to own</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <h2>Choose Your Own Destiny</h2>
+            <p>Every prospect is different. Where are you in your journey? Select your profile below, and we'll customize everything—headlines, content, CTAs, even the journey itself.</p>
+        </div>
+
+        <!-- Conversion Meter -->
+        <div class="conversion-meter">
+            <div class="meter-label">Your Personalization Level</div>
+            <div class="meter-bar">
+                <div class="meter-fill" id="meter"></div>
+            </div>
+            <div class="meter-text" id="meterText">Select a profile to start your journey</div>
+        </div>
+
+        <!-- Journey Indicator -->
+        <div class="journey-indicator" id="journeyIndicator" style="display: none;">
+            <h5 id="journeyTitle">Your Journey Stage</h5>
+            <p id="journeyDesc"></p>
+        </div>
+
+        <!-- Profile Selection -->
+        <div class="profiles-section">
+            <h3>Where Are You in Your Buyer's Journey?</h3>
+            <div class="profile-grid">
+                <!-- Just Discovering Profile -->
+                <div class="profile-card" data-profile="explorer">
+                    <div class="profile-icon">🔍</div>
+                    <h4>The Explorer</h4>
+                    <p>Just discovering the space, exploring options</p>
+                    <span class="stage-badge">Awareness</span>
+                </div>
+
+                <!-- Evaluating Profile -->
+                <div class="profile-card" data-profile="evaluator">
+                    <div class="profile-icon">⚖️</div>
+                    <h4>The Evaluator</h4>
+                    <p>Comparing solutions, reading case studies</p>
+                    <span class="stage-badge">Consideration</span>
+                </div>
+
+                <!-- Ready to Commit Profile -->
+                <div class="profile-card" data-profile="committer">
+                    <div class="profile-icon">🎯</div>
+                    <h4>The Committer</h4>
+                    <p>Ready to move forward, just need the right fit</p>
+                    <span class="stage-badge">Decision</span>
+                </div>
+
+                <!-- Already Convinced Profile -->
+                <div class="profile-card" data-profile="advocate">
+                    <div class="profile-icon">🚀</div>
+                    <h4>The Advocate</h4>
+                    <p>Convinced, now helping others or expanding</p>
+                    <span class="stage-badge">Loyalty</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div class="content-area">
+            <!-- Left Panel: Customized Message -->
+            <div>
+                <!-- Explorer Content -->
+                <div class="content-panel active" data-profile="explorer">
+                    <h4>Welcome, Explorer 🔍</h4>
+                    <p>You're in great company. Most of our best customers started exactly where you are—curious and exploring what's possible.</p>
+                    <h5 style="color: var(--color-primary); margin-top: var(--space-24); margin-bottom: 12px;">What You'll Learn Here:</h5>
+                    <ul>
+                        <li>The fundamentals of personalized experiences</li>
+                        <li>Why one-size-fits-all doesn't work anymore</li>
+                        <li>Real examples from companies like yours</li>
+                        <li>How others went from exploring to converting</li>
+                    </ul>
+                    <div class="cta-options">
+                        <h5>📚 Next Steps</h5>
+                        <div class="cta-buttons">
+                            <button class="cta-btn cta-btn-secondary">Read Case Studies</button>
+                            <button class="cta-btn cta-btn-secondary">Watch a Demo (5 min)</button>
+                            <button class="cta-btn cta-btn-primary">⭐ Start Free Trial (No Credit Card)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evaluator Content -->
+                <div class="content-panel" data-profile="evaluator">
+                    <h4>Smart Choices, The Evaluator Way ⚖️</h4>
+                    <p>You know what you need. You're comparing, asking the hard questions, and that's exactly what we expect.</p>
+                    <h5 style="color: var(--color-primary); margin-top: var(--space-24); margin-bottom: 12px;">What Sets Us Apart:</h5>
+                    <ul>
+                        <li>Proven 45% conversion lift with personalization</li>
+                        <li>Deep-dive competitive comparison framework</li>
+                        <li>Talk to customers in your industry</li>
+                        <li>Risk-free 30-day guarantee</li>
+                        <li>Implementation support included</li>
+                    </ul>
+                    <div class="cta-options">
+                        <h5>📊 For the Detail-Oriented</h5>
+                        <div class="cta-buttons">
+                            <button class="cta-btn cta-btn-secondary">Get Full Comparison Sheet</button>
+                            <button class="cta-btn cta-btn-secondary">Schedule 30-Min Consultation</button>
+                            <button class="cta-btn cta-btn-primary">🔒 Book a Custom Demo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Committer Content -->
+                <div class="content-panel" data-profile="committer">
+                    <h4>Let's Make This Happen 🎯</h4>
+                    <p>You've done your research. You know the value. Let's remove any remaining friction and get you started today.</p>
+                    <h5 style="color: var(--color-primary); margin-top: var(--space-24); margin-bottom: 12px;">Express Onboarding:</h5>
+                    <ul>
+                        <li>Setup in &lt;24 hours</li>
+                        <li>Dedicated implementation specialist</li>
+                        <li>First 5 days of personalization guidance</li>
+                        <li>Priority support</li>
+                        <li>Fast-track to ROI</li>
+                    </ul>
+                    <div class="cta-options">
+                        <h5>⚡ Ready to Go Live</h5>
+                        <div class="cta-buttons">
+                            <button class="cta-btn cta-btn-secondary">See Pricing & Plans</button>
+                            <button class="cta-btn cta-btn-primary">✅ Activate Account Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advocate Content -->
+                <div class="content-panel" data-profile="advocate">
+                    <h4>Welcome Back, Advocate 🚀</h4>
+                    <p>You've experienced the power of personalization. Ready to deepen your impact? Here's what's next.</p>
+                    <h5 style="color: var(--color-primary); margin-top: var(--space-24); margin-bottom: 12px;">Advanced Features for Power Users:</h5>
+                    <ul>
+                        <li>Advanced segmentation & behavioral triggers</li>
+                        <li>Custom API integrations</li>
+                        <li>White-label solutions</li>
+                        <li>Enterprise partnerships & referral programs</li>
+                        <li>VIP success planning</li>
+                    </ul>
+                    <div class="cta-options">
+                        <h5>🎁 Unlock Premium Benefits</h5>
+                        <div class="cta-buttons">
+                            <button class="cta-btn cta-btn-secondary">Explore Partner Program</button>
+                            <button class="cta-btn cta-btn-primary">💎 Upgrade to Enterprise</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Social Proof & Value Props -->
+            <div>
+                <!-- Explorer Social Proof -->
+                <div class="content-panel active" data-profile="explorer">
+                    <h4>Join 5,000+ Growing Companies</h4>
+                    <p style="margin-bottom: var(--space-24); color: var(--color-text-light);">Here's how others in your position got started:</p>
+                    <div style="background: #f8f9fa; padding: var(--space-16); border-radius: var(--radius-base); margin-bottom: var(--space-16);">
+                        <p style="margin-bottom: 8px;"><strong>"We went from 2% to 8% conversion in 90 days."</strong></p>
+                        <p style="font-size: 14px; color: var(--color-text-light);">Sarah, Head of Growth @ TechStartup</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: var(--space-16); border-radius: var(--radius-base); margin-bottom: var(--space-16);">
+                        <p style="margin-bottom: 8px;"><strong>"The aha moment: different visitors need different messages."</strong></p>
+                        <p style="font-size: 14px; color: var(--color-text-light);">Marcus, Founder @ SaaS Co</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: var(--space-16); border-radius: var(--radius-base);">
+                        <p style="margin-bottom: 8px;"><strong>"Best investment in our funnel, hands down."</strong></p>
+                        <p style="font-size: 14px; color: var(--color-text-light);">Jenna, CMO @ B2B Enterprise</p>
+                    </div>
+                </div>
+
+                <!-- Evaluator Social Proof -->
+                <div class="content-panel" data-profile="evaluator">
+                    <h4>Why Leaders Choose Us</h4>
+                    <p style="margin-bottom: var(--space-24); color: var(--color-text-light);">Numbers from companies serious about conversion:</p>
+                    <div style="background: var(--color-primary); color: white; padding: var(--space-16); border-radius: var(--radius-base); margin-bottom: var(--space-16); text-align: center;">
+                        <p style="font-size: 28px; font-weight: bold; margin-bottom: 4px;">45%</p>
+                        <p>Average Conversion Lift</p>
+                    </div>
+                    <div style="background: var(--color-success); color: white; padding: var(--space-16); border-radius: var(--radius-base); margin-bottom: var(--space-16); text-align: center;">
+                        <p style="font-size: 28px; font-weight: bold; margin-bottom: 4px;">2.3x</p>
+                        <p>ROI Within 6 Months</p>
+                    </div>
+                    <div style="background: var(--color-accent); color: white; padding: var(--space-16); border-radius: var(--radius-base); text-align: center;">
+                        <p style="font-size: 28px; font-weight: bold; margin-bottom: 4px;">4.9/5</p>
+                        <p>Customer Satisfaction</p>
+                    </div>
+                </div>
+
+                <!-- Committer Social Proof -->
+                <div class="content-panel" data-profile="committer">
+                    <h4>Your Success Is Our Success</h4>
+                    <p style="margin-bottom: var(--space-24); color: var(--color-text-light);">Here's what happens in the first 90 days:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--color-border); display: flex; gap: var(--space-16);">
+                            <span style="font-size: 20px;">⭐</span>
+                            <span><strong>Day 1:</strong> Setup & integration complete</span>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--color-border); display: flex; gap: var(--space-16);">
+                            <span style="font-size: 20px;">📊</span>
+                            <span><strong>Week 2:</strong> First personalization rules live</span>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid var(--color-border); display: flex; gap: var(--space-16);">
+                            <span style="font-size: 20px;">📈</span>
+                            <span><strong>Day 30:</strong> See measurable lift</span>
+                        </li>
+                        <li style="padding: 12px 0; display: flex; gap: var(--space-16);">
+                            <span style="font-size: 20px;">🎯</span>
+                            <span><strong>Day 90:</strong> ROI breakeven + momentum</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Advocate Social Proof -->
+                <div class="content-panel" data-profile="advocate">
+                    <h4>Enterprise-Level Features</h4>
+                    <p style="margin-bottom: var(--space-24); color: var(--color-text-light);">For companies scaling their personalization:</p>
+                    <ul>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative;">Advanced AI-driven segment prediction</li>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative;">Multi-channel orchestration</li>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative;">Custom webhook integrations</li>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative;">Dedicated account management</li>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative;">Co-marketing opportunities</li>
+                        <li style="padding: 8px 0; padding-left: 24px; position: relative;">Priority feature development</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 The Swimming Pool. Every visitor deserves a custom experience. | <a href="#" style="color: white; text-decoration: underline;">Privacy</a> | <a href="#" style="color: white; text-decoration: underline;">Terms</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Profile data with buyer journey stages
+        const profiles = {
+            explorer: {
+                title: 'Explorer - Awareness Stage',
+                description: 'You\'re in exploration mode. We\'ll introduce core concepts and show you what\'s possible.',
+                stage: 'AWARENESS',
+                meterWidth: 25
+            },
+            evaluator: {
+                title: 'Evaluator - Consideration Stage',
+                description: 'You\'re comparing options carefully. We\'ll give you the data and comparisons you need.',
+                stage: 'CONSIDERATION',
+                meterWidth: 50
+            },
+            committer: {
+                title: 'Committer - Decision Stage',
+                description: 'You\'re ready to act. We\'ll streamline everything to get you implemented fast.',
+                stage: 'DECISION',
+                meterWidth: 75
+            },
+            advocate: {
+                title: 'Advocate - Loyalty Stage',
+                description: 'You\'re a believer. Let\'s unlock advanced features and maximize your impact.',
+                stage: 'LOYALTY',
+                meterWidth: 100
+            }
+        };
+
+        // Event listeners for profile cards
+        document.querySelectorAll('.profile-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const profileType = card.dataset.profile;
+                selectProfile(profileType);
+            });
+        });
+
+        function selectProfile(profileType) {
+            // Remove active from all cards
+            document.querySelectorAll('.profile-card').forEach(c => {
+                c.classList.remove('active');
+            });
+
+            // Add active to selected card
+            document.querySelector(`[data-profile="${profileType}"]`).classList.add('active');
+
+            // Hide all content panels
+            document.querySelectorAll('.content-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // Show relevant content panels
+            document.querySelectorAll(`[data-profile="${profileType}"]`).forEach(panel => {
+                if (panel.classList.contains('content-panel')) {
+                    panel.classList.add('active');
+                }
+            });
+
+            // Update journey indicator
+            const profile = profiles[profileType];
+            const journeyInd = document.getElementById('journeyIndicator');
+            journeyInd.style.display = 'block';
+            document.getElementById('journeyTitle').textContent = profile.title;
+            document.getElementById('journeyDesc').textContent = profile.description;
+
+            // Update meter
+            const meter = document.getElementById('meter');
+            meter.style.width = profile.meterWidth + '%';
+            document.getElementById('meterText').textContent = `You're ${profile.meterWidth}% through the journey (${profile.stage})`;
+
+            // Smooth scroll to content
+            document.querySelector('.content-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Add CTA button interactions
+        document.querySelectorAll('.cta-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const text = this.textContent;
+                alert(`✅ Great choice!\n\n"${text}"\n\nIn a real implementation, this would:\n• Track the action\n• Move them through your funnel\n• Customize their next experience based on this decision\n\nThis is the power of The Swimming Pool—each choice shapes their journey.`);
+            });
+        });
+
+        // Auto-select first profile on load for demo
+        setTimeout(() => {
+            selectProfile('explorer');
+        }, 500);
+    </script>
+</body>
+</html>
