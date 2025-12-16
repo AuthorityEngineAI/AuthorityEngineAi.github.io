@@ -1,2 +1,2 @@
 # AuthorityEngineAi.github.io
-Swimming Pool Landing Pagr
+Swimming Pool Landing Page
