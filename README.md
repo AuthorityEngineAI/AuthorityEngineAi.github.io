@@ -1,5 +1,3 @@
-Here is the full `index.html` file you can place at the root of your GitHub repository and use as your GitHub Pages entry point, already aligned with the Authority Engine brand guidelines:
-
 ```html
 <!DOCTYPE html>
 <html lang="en">
